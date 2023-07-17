@@ -1,0 +1,2 @@
+def getOpenaiKey():
+    return "your-openai-key-here"
