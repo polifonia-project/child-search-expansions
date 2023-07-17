@@ -68,3 +68,19 @@ def generate_answer(input_request, search_results):
     )
     return finalResponse["choices"][0]["message"]["content"]
 
+def keywordExpansion (inputTerms):
+    messages = [
+        # {"role": "system", "content": "You are a helpful search assistant that can provide information."},
+        {"role": "user", "content": "Expand each of the terms listed below into synonyms and related terms. "
+                                    "Only use single words for the related terms or synonyms. Display the "
+                                    "new terms in a JSON structure with the original terms as a key and "
+                                    "the list of terms as an array attribute."},
+        {"role": "user", "content": f"{inputTerms}"},
+    ]
+    finalResponse = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        # engine=engine
+    )
+    return finalResponse["choices"][0]["message"]["content"]
+

@@ -5,6 +5,7 @@ from flask import *
 import urllib.parse
 import os
 from flask import request
+import json
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -28,29 +29,35 @@ def run(input_request):
     '''
     return answer
 
-def getQuery(input_request):
-    search_query = generate_search_query(input_request)
-    return search_query
+def expand(inputTerms):
+    gptResponse = keywordExpansion(inputTerms)
+    responseJson = json.loads(gptResponse)
+    return responseJson
 
+def generateSparql(terms):
+
+    query = generateSPARQLQueryFromTerms(terms)
+    return query
+
+# ****** ROUTES ******
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/test")
-def test():
-    return ("Woooot! Success")
+@app.route("/getquery", methods=['POST'])
+def getQuery():
+    data = request.json
+    # q = request.args.get("q")
+    answer = generateSparql(data)
+    r = Response(response=answer, status=200)
+    r.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return r
 
-@app.route("/query")
-def query():
+@app.route("/expansion")
+def expansion():
     q = request.args.get("q")
-    answer = getQuery(q)
-    return answer
-
-@app.route("/ask")
-def ask():
-    q = request.args.get("q")
-    answer = run(q)
+    answer = expand(q)
     return answer
 
 

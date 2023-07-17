@@ -21,23 +21,25 @@
     </head>
     <body>
         <!-- Navigation-->
+        <!--
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="https://led.kmi.open.ac.uk/" target="_blank">LED Homepage</a>
                 <a class="btn btn-primary" href="#signup">Sign Up</a>
             </div>
         </nav>
+        -->
         <!-- Masthead-->
+
+        <!--
         <header class="masthead">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <div class="text-center text-white">
-                            <!-- Page heading-->
+
                             <h1 class="mb-5">LED: Enhanced search</h1>
 
-                           <!-- <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN"> -->
-                                <!-- Email address input-->
                                 <div class="row">
                                     <div class="col">
                                         <input class="form-control form-control-lg" id="searchTerm" type="text" placeholder="Type your question here..." />
@@ -45,30 +47,51 @@
                                     <div class="col-auto"><button class="btn btn-primary btn-lg" id="submitButton" type="submit" onclick="search();">Submit</button></div>
                                 </div>
 
-                            <!-- </form> -->
+
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+        -->
 
         <section class="features-icons bg-light text-center">
             <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Search</h5>
+                                  <h6 class="card-subtitle mb-2 text-body-secondary">Provide a comma seperated list of conceptual search terms</h6>
+                                <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>-->
+                                <p class="card-text">
+                                    <input class="form-control form-control-lg" id="searchTerms" type="text" placeholder="Type your keywords here..." />
+                                    <br />
+                                    <button class="btn btn-primary btn-lg" id="submitButton" type="submit" onclick="search();">Submit</button>
+                                </p>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <hr />
+
                 <div class="row">
                     <div class="col-lg-6">
                             <div class="card">
                               <div class="card-body">
-                                <h5 class="card-title">SPARQL Query</h5>
+                                <h5 class="card-title">Enhanced search terms</h5>
                                 <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>-->
-                                <p class="card-text"><span id="sparqlquery" class="pull-left">SPARQL query here...</span></p>
+                                <p class="card-text"><span id="expandedTerms" class="pull-left">Expanded...</span></p>
                               </div>
                             </div>
                     </div>
                     <div class="col-lg-6">
                             <div class="card">
                               <div class="card-body">
-                                <h5 class="card-title">LED Results</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">Results of the SPARQL query, returned from the LED KG</h6>
+                                <h5 class="card-title">SPARQL query</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Auto generated SPARQL query for LED KG</h6>
                                 <p class="card-text"><span id="sparqlresults">Results here...</span></p>
                               </div>
                             </div>
@@ -79,9 +102,9 @@
                     <div class="col-lg-12">
                         <div class="card">
                               <div class="card-body">
-                                <h5 class="card-title">Consolidated results</h5>
+                                <h5 class="card-title">LED seach results</h5>
                                 <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>-->
-                                <p class="card-text"><span id="consilidatedresults">Consolidated results here...</span></p>
+                                <p class="card-text"><span id="consilidatedresults">LED results here...</span></p>
                               </div>
                             </div>
                     </div>
@@ -127,16 +150,48 @@
         <script>
             $(document).ready(function () {
                 $("button").click(function () {
-                    var searchQuestion = $("#searchTerm").val();
+                    var searchTerms = $("#searchTerms").val();
                     //var searchURL = "/test?q=" + searchQuestion;
-                    var searchURL = "/query?q=" + searchQuestion;
-                    console.log(searchURL);
+                    var expansionURL = "/expansion?q=" + searchTerms;
+                    console.log(expansionURL);
                     $.ajax({
-                        url: searchURL , success: function (result) {
-                            $("#sparqlquery").html("<pre>" + result + "</pre>");
+                        url: expansionURL , success: function (result) {
+                            console.log(result);
+                            $("#expandedTerms").html("<pre>" + JSON.stringify(result, null, 2) + "</pre>");
+
+                            //data = result;
+                            $.ajax({
+                                type: "POST",
+                                url: "/getquery",
+                                data: JSON.stringify(result),
+                                contentType:"application/json; charset=utf-8",
+                                success: function (sparqlresult) {
+                                    $("#sparqlresults").html("<pre>" + JSON.stringify(sparqlresult, null, 2) + "</pre>");
+
+                                    ledUrl = 'https://data.open.ac.uk/sparql';
+                                    $.ajax({
+                                        type: "POST",
+                                        url: ledUrl,
+                                        headers: {
+                                            "Accept": "application/sparql-results+json",
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        data: {
+                                            query: sparqlresult
+                                        },
+                                        success: function (ledResults) {
+
+                                            $("#consilidatedresults").html("<pre>" + JSON.stringify(ledResults, null, 2) + "</pre>");
+                                        }
+                                    });
+
+                                }
+                            });
                         }
                     });
                 });
+
+
             });
 
             function search() {
