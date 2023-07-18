@@ -21,16 +21,17 @@ def generateSPARQLQueryFromTerms(termsDict):
     searchString = ' AND '.join(queryChunks)
     print(searchString)
 
-    query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " \
-            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " \
-            "PREFIX led: <http://led.kmi.open.ac.uk/term/> " \
-            "PREFIX dct: <http://purl.org/dc/terms/> " \
-            "PREFIX pl: <http://purl.org/NET/c4dm/event.owl#> " \
-            "PREFIX bds: <http://www.bigdata.com/rdf/search#> " \
-            "SELECT ?s ?p ?o " \
-            "FROM <http://data.open.ac.uk/context/led> " \
-            "WHERE { " \
-            "?o bds:search '" + searchString + "' ." \
-            "?s rdf:value ?o " \
-            "}"
+    query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" \
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" \
+            "PREFIX led: <http://led.kmi.open.ac.uk/term/> \n" \
+            "PREFIX dct: <http://purl.org/dc/terms/> \n" \
+            "PREFIX pl: <http://purl.org/NET/c4dm/event.owl#> \n" \
+            "PREFIX bds: <http://www.bigdata.com/rdf/search#> \n" \
+            "SELECT ?s ?p ?o \n" \
+            "FROM <http://data.open.ac.uk/context/led> \n" \
+            "WHERE { \n" \
+            "?o bds:search '" + searchString + "' . \n" \
+            "?s rdf:value ?o \n" \
+            "} \n" \
+            "LIMIT 20"
     return query
