@@ -15,10 +15,10 @@ def generateSPARQLQueryFromTerms(termsDict):
         tempList.append(term)
         for synonym in termsDict[term]:
             tempList.append(synonym)
-        tempString = ' OR '.join(tempList)
-        withBracketsStr = '(' + tempString + ')'
+        tempString = ' '.join(tempList)
+        withBracketsStr = '{ ?o bds:search \'' + tempString + '\' . ?s rdf:value ?o }'
         queryChunks.append(withBracketsStr)
-    searchString = ' AND '.join(queryChunks)
+    searchString = ' '.join(queryChunks)
     print(searchString)
 
     query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" \
@@ -30,8 +30,7 @@ def generateSPARQLQueryFromTerms(termsDict):
             "SELECT ?s ?p ?o \n" \
             "FROM <http://data.open.ac.uk/context/led> \n" \
             "WHERE { \n" \
-            "?o bds:search '" + searchString + "' . \n" \
-            "?s rdf:value ?o \n" \
-            "} \n" \
-            "LIMIT 20"
+            "" + searchString + "\n" \
+                                               "} \n" \
+                                               "LIMIT 20"
     return query
