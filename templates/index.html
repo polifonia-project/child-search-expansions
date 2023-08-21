@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Landing Page - Start Bootstrap Theme</title>
+        <title>LED LLM EXPANSIONS</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -84,7 +84,11 @@
                               <div class="card-body">
                                 <h5 class="card-title">Enhanced search terms</h5>
                                 <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>-->
-                                <p class="card-text"><span id="expandedTerms" class="pull-left">Expanded...</span></p>
+                                <p class="card-text">
+                                    <span id="expandedTerms" class="pull-left">
+                                        Expanded...
+                                    </span>
+                                </p>
                               </div>
                             </div>
                     </div>
@@ -233,6 +237,11 @@
                     }
                 });
                 return tempList;
+            }
+
+            function allSearchTermsToCheckboxes (data) {
+                //Generate a list of checkboxes here, one for each search term
+
             }
 
             function search() {
