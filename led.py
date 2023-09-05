@@ -34,3 +34,32 @@ def generateSPARQLQueryFromTerms(termsDict):
                                                "} \n" \
                                                "LIMIT 20"
     return query
+
+def generateSPARQLQueryFromTerms2(termsDict):
+    queryHeader = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" \
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" \
+            "PREFIX led: <http://led.kmi.open.ac.uk/term/> \n" \
+            "PREFIX dct: <http://purl.org/dc/terms/> \n" \
+            "PREFIX pl: <http://purl.org/NET/c4dm/event.owl#> \n" \
+            "PREFIX bds: <http://www.bigdata.com/rdf/search#> \n" \
+            "SELECT ?s ?p ?o \n" \
+            "FROM <http://data.open.ac.uk/context/led> \n"
+
+    wordList = []
+    phraseList = []
+    for term in termsDict:
+        wordList.append(term)
+        for synonym in termsDict[term]:
+            if (' ' in synonym):
+                phraseList.append(synonym)
+            else:
+                wordList.append(synonym)
+    wordString = ' '.join(wordList)
+    wordQuery = '{ ?o bds:search \'' + wordString + '\' . ?s rdf:value ?o }'
+    phraseQuery = ''
+    for phrase in phraseList:
+        tempPhrase = phrase.replace(" ", "\\\s+")
+        queryPart = 'UNION { ?s rdf:value ?o . FILTER(REGEX(str(?o), "' + tempPhrase + '")) } \n'
+        phraseQuery += queryPart
+    finalQuery = queryHeader + ' WHERE { ' + wordQuery + ' \n' + phraseQuery + ' \n }'
+    return finalQuery

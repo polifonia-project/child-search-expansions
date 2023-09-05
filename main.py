@@ -36,7 +36,7 @@ def expand(inputTerms):
 
 def generateSparql(terms):
 
-    query = generateSPARQLQueryFromTerms(terms)
+    query = generateSPARQLQueryFromTerms2(terms)
     return query
 
 # ****** ROUTES ******
