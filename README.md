@@ -2,7 +2,7 @@
 component-id: child-search-expansion
 type: Software
 name: CHILD Search expansion using LLMs
-description: This software component was developed with the aim of supporting the identification of implicit themes in text and takes as reference the documentary evidence benchmark.
+description: This software component was developed with the aim of supporting the identification of implicit themes in text and takes as reference the documentary evidence benchmark
 - WP4
 pilot:
 - CHILD
@@ -10,7 +10,7 @@ project: polifonia-project
 resource: https://github.com/polifonia-project/child-search-expansions/
 release-date: 05/09/2023
 release-number: v0.1
-release link: https://github.com/polifonia-project/child-search-expansions/releases/tag/v0.1
+release-link: https://github.com/polifonia-project/child-search-expansions/releases/tag/v0.1
 doi: https://zenodo.org/badge/latestdoi/588597123
 changelog: https://github.com/polifonia-project/child-search-expansions/releases/tag/v0.1
 licence:
