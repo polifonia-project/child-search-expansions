@@ -42,8 +42,8 @@ def generateSPARQLQueryFromTerms2(termsDict):
             "PREFIX dct: <http://purl.org/dc/terms/> \n" \
             "PREFIX pl: <http://purl.org/NET/c4dm/event.owl#> \n" \
             "PREFIX bds: <http://www.bigdata.com/rdf/search#> \n" \
-            "SELECT ?s ?p ?o \n" \
-            "FROM <http://data.open.ac.uk/context/led> \n"
+            "SELECT DISTINCT ?excerpt ?lexp ?text \n"
+            # "FROM <http://data.open.ac.uk/context/led> \n"
 
     wordList = []
     phraseList = []
@@ -55,11 +55,11 @@ def generateSPARQLQueryFromTerms2(termsDict):
             else:
                 wordList.append(synonym)
     wordString = ' '.join(wordList)
-    wordQuery = '{ ?o bds:search \'' + wordString + '\' . ?s rdf:value ?o }'
+    wordQuery = '{ ?text bds:search \'' + wordString + '\' . ?excerpt rdf:value ?text . ?lexp led:is_reported_in ?excerpt }'
     phraseQuery = ''
     for phrase in phraseList:
         tempPhrase = phrase.replace(" ", "\\\s+")
-        queryPart = 'UNION { ?s rdf:value ?o . FILTER(REGEX(str(?o), "' + tempPhrase + '")) } \n'
+        queryPart = 'UNION { ?excerpt rdf:value ?text . ?lexp led:is_reported_in ?excerpt . FILTER(REGEX(str(?text), "' + tempPhrase + '")) } \n'
         phraseQuery += queryPart
     finalQuery = queryHeader + ' WHERE { ' + wordQuery + ' \n' + phraseQuery + ' \n }'
     return finalQuery
