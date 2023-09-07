@@ -46,4 +46,6 @@ listening experiences) are stored in `output/output.txt`. These results can
 be analysed for precision and recall values against the documentary evidence benchmark 
 data by running `precisionRecall.py`.
 
+Initial precision/recall values are described in `output/precisionRecall-<date>.xlsx`.
+
 
