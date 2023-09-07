@@ -32,4 +32,18 @@ credits:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8322490.svg)](https://doi.org/10.5281/zenodo.8322490)
 
 
-This software component was developed with the aim of supporting the identification of implicit themes in text and takes as reference the documentary evidence benchmark.
+This software component was developed with the aim of supporting the identification of 
+implicit themes in text and takes as reference the documentary evidence benchmark.
+
+Interactions with the ChatGPT API (or other LLM) is currently handled in 
+the `chatgpt.py` file. Interactions with the LED knowledge graph are handled in `led.py`. In 
+order to run any of the scripts in this distribution, a copy of `config.py.dist` must be 
+made, called `config.py`, in which a valid OpenAI API key should be specified.
+
+`runTest.py` can be used to run the keyword expansion and test the results in a SPARQL 
+query issued against a knowledge graph. The returned results (a list of 
+listening experiences) are stored in `output/output.txt`. These results can 
+be analysed for precision and recall values against the documentary evidence benchmark 
+data by running `precisionRecall.py`.
+
+
