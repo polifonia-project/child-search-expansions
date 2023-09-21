@@ -1,3 +1,5 @@
+import sys
+
 def read_strings_from_file(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -16,12 +18,18 @@ def calculate_precision_recall(file1_path, file2_path):
     precision = len(common_strings) / len(set1) if len(set1) > 0 else 0
     recall = len(common_strings) / len(set2) if len(set2) > 0 else 0
 
-    return precision, recall
+    return precision, recall, len(set1)
 
-# Example usage:
-file1_path = 'output/output.6.txt'
-file2_path = 'data/benchmarkLEs.csv'
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 precisionRecall.py <input-file> ")
+        sys.exit(1)
 
-precision, recall = calculate_precision_recall(file1_path, file2_path)
-print(f'Precision: {precision:.2f}')
-print(f'Recall: {recall:.2f}')
+    file1_path = sys.argv[1]
+    # file2_path = sys.argv[2]
+    file2_path = 'data/benchmarkLEs.csv'
+
+    precision, recall, setLength = calculate_precision_recall(file1_path, file2_path)
+    print(f'Length: {setLength}')
+    print(f'Precision: {precision:.2f}')
+    print(f'Recall: {recall:.2f}')

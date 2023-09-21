@@ -14,10 +14,10 @@ def generate_search_query(input_request):
         {
             "role": "user",
             "content": "Generate a valid SPARQL query to search a knowledge graph of historical listening "
-                                    "experiences that answers the question. Prioritize the most important keywords and "
-                                    "add synonyms to focus the search. Ensure that the response contain only the query and no other extra text. "
-                                    "A search for the term 'childhood' is shown below. Use this as a template for the query:"
-                                    """
+                       "experiences that answers the question. Prioritize the most important keywords and "
+                       "add synonyms to focus the search. Ensure that the response contain only the query and no other extra text. "
+                       "A search for the term 'childhood' is shown below. Use this as a template for the query:"
+                       """
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX led: <http://led.kmi.open.ac.uk/term/>
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -68,11 +68,12 @@ def generate_answer(input_request, search_results):
     )
     return finalResponse["choices"][0]["message"]["content"]
 
-def keywordExpansion (inputTerms):
+
+def keywordExpansion(inputTerms):
     messages = [
         # {"role": "system", "content": "You are a helpful search assistant that can provide information."},
         {"role": "user", "content": "Expand each of the terms listed below into synonyms and related terms. "
-                                    "Only use single words for the related terms or synonyms. Display the "
+                                    "Create exactly 15 of them. Display the "
                                     "new terms in a JSON structure with the original terms as a key and "
                                     "the list of terms as an array attribute."},
         {"role": "user", "content": f"{inputTerms}"},
@@ -84,3 +85,18 @@ def keywordExpansion (inputTerms):
     )
     return finalResponse["choices"][0]["message"]["content"]
 
+
+def categoriseChildhood(lexp):
+    messages = [
+        # {"role": "system", "content": "You are a helpful search assistant that can provide information."},
+        {"role": "user", "content": "Does the following passage describe childhood experiences of listening to music?"
+                                    "Give me the answer as a JSON structure with two keys: 'childhood' and 'reason'. The attribute "
+                                    "of 'childhood' should either be true or false and the attribute of 'reason' should be the reasons for you answer."},
+        {"role": "user", "content": f"{lexp}"},
+    ]
+    finalResponse = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        # engine=engine
+    )
+    return finalResponse["choices"][0]["message"]["content"]

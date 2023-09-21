@@ -32,7 +32,10 @@ gptResponse = keywordExpansion(input)
 print(gptResponse)
 gptResponseObj = json.loads(gptResponse)
 query = generateSPARQLQueryFromTerms2(gptResponseObj)
+fullQuery = generateSPARQLQueryFromTermsFull(gptResponseObj)
 print(query)
+
+# do lexp query
 safeQuery = urllib.parse.quote_plus(query)
 payload = 'query=' + safeQuery
 ledResponse = requests.request("POST", sparqlEndpoint, headers=headers, data=payload)
@@ -40,11 +43,29 @@ ledResponse = requests.request("POST", sparqlEndpoint, headers=headers, data=pay
 ledResponseObj = ledResponse.json()
 ledEntries = []
 for item in ledResponseObj['results']['bindings']:
-    print(item['excerpt']['value'])
+    # print(item['excerpt']['value'])
     print(item['lexp']['value'])
-    print(item['text']['value'])
-    print('---------')
+    # print(item['text']['value'])
+    # print('---------')
     ledEntries.append(item['lexp']['value'])
 
 file_name = "output/output.txt"
+write_strings_to_file(ledEntries, file_name)
+
+# do full query
+safeQuery = urllib.parse.quote_plus(fullQuery)
+payload = 'query=' + safeQuery
+ledResponse = requests.request("POST", sparqlEndpoint, headers=headers, data=payload)
+# print(ledResponse.text)
+ledResponseObj = ledResponse.json()
+ledEntries = []
+for item in ledResponseObj['results']['bindings']:
+    # print(item['excerpt']['value'])
+    print(item['lexp']['value'])
+    # print(item['text']['value'])
+    # print('---------')
+    ledEntries.append(item['lexp']['value'] + ' - ' + item['text']['value'])
+    ledEntries.append('---------------------')
+
+file_name = "output/output.full.txt"
 write_strings_to_file(ledEntries, file_name)

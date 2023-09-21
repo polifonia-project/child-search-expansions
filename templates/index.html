@@ -177,7 +177,8 @@
 
                                     $("#sparqlresults").html("<pre>" + sparqlresult + "</pre>");
 
-                                    ledUrl = 'https://data.open.ac.uk/sparql';
+                                    //ledUrl = 'https://data.open.ac.uk/sparql';
+                                    ledUrl = 'http://localhost:9999/blazegraph/namespace/led'
                                     $.ajax({
                                         type: "POST",
                                         url: ledUrl,
@@ -214,8 +215,8 @@
                 for (i=0; i < bindings.length; i++) {
                     itemHTML = '';
                     itemHTML += '<hr />'
-                    itemHTML += '<h6><a href="">'+bindings[i].s.value+'</a></h6>';
-                    itemHTML += '<p>' + strip(bindings[i].o.value) + '</p>';
+                    itemHTML += '<h6><a href="">'+bindings[i].lexp.value+'</a></h6>';
+                    itemHTML += '<p>' + strip(bindings[i].text.value) + '</p>';
 
                     fullHTML += itemHTML;
                 }
