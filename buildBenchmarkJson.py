@@ -3,8 +3,10 @@ import json
 
 # Define the input and output file names
 input_file = 'data/experiences.csv'
-output_file = 'data/benchmarkLEs.json'
-benchmark_file = 'data/benchmarkLEs.csv'
+# output_file = 'data/benchmarkLEs.json'
+# benchmark_file = 'data/benchmarkLEs.csv'
+output_file = 'data/all_lexp.json'
+benchmark_file = 'output/30-terms/output.1.txt'
 
 benchmarkData = dict()
 
@@ -28,6 +30,8 @@ with open(input_file, 'r', newline='') as csv_file:
             if len(row) >= 4:
                 lexp = row[1]
                 if (lexp in benchmarkLEs):
+                # output all lexps
+                # if True:
                     # Replace newline characters with full stops
                     text = row[3].replace('\n', ' ').replace('\r', '').replace('&nbsp;', ' ').strip()
                     benchmarkData[lexp] = text
