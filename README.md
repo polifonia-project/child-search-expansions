@@ -1,7 +1,7 @@
 ---
 component-id: child-search-expansion
 type: Software
-name: CHILD Search expansion using LLMs
+name: CHILD - Listening experience classification using LLMs
 description: This software component was developed with the aim of supporting the identification of implicit themes in text and takes as reference the documentary evidence benchmark
 work-package: 
   - WP4
@@ -27,7 +27,7 @@ credits:
   - https://github.com/enridaga
 ---
 
-# CHILD - Search expansion using LLMs
+# CHILD - Listening experience classification using LLMs
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8322490.svg)](https://doi.org/10.5281/zenodo.8322490)
 
@@ -40,12 +40,7 @@ the `chatgpt.py` file. Interactions with the LED knowledge graph are handled in 
 order to run any of the scripts in this distribution, a copy of `config.py.dist` must be 
 made, called `config.py`, in which a valid OpenAI API key should be specified.
 
-`runTest.py` can be used to run the keyword expansion and test the results in a SPARQL 
-query issued against a knowledge graph. The returned results (a list of 
-listening experiences) are stored in `output/output.txt`. These results can 
-be analysed for precision and recall values against the documentary evidence benchmark 
-data by running `precisionRecall.py`.
+A summary of the experiements performed is provided in 'output/CHILD_text_classification_with_LLM.pdf'
 
-Initial precision/recall values are described in `output/precisionRecall-<date>.xlsx`.
-
+Results and analysis are provided in 'output/ChatGPT-CHILD-Analysis.xlsx'
 
