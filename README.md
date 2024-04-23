@@ -42,7 +42,7 @@ are able to shed new light on data that may go unnoticed by humans.
 
 ---
 
-This software included here was developed with the aim of supporting the identification of 
+The software included here was developed with the aim of supporting the identification of 
 implicit themes in text and takes as reference the documentary evidence benchmark.
 
 Interactions with the ChatGPT API (or other LLM) is currently handled in 
