@@ -31,8 +31,18 @@ credits:
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8322490.svg)](https://doi.org/10.5281/zenodo.8322490)
 
+This small study, undertaken as part of the wider CHILD pilot, focuses on harnessing LLM technology
+to classify existing text extracts within LED, a task traditionally performed by human domain experts,
+to address the challenges posed by the volume of textual data in fields such as music history.
+Our experiment evaluates the effectiveness of an LLM in categorizing text extracts under the specific
+theme of childhood, comparing its performance with that of a human domain expert. The comparison
+aims to quantify the alignment between machine and human interpretations in textual analysis, look
+at areas where LLM technology may show weaknesses and also investigate if there areas where LLMs
+are able to shed new light on data that may go unnoticed by humans.
 
-This software component was developed with the aim of supporting the identification of 
+---
+
+This software included here was developed with the aim of supporting the identification of 
 implicit themes in text and takes as reference the documentary evidence benchmark.
 
 Interactions with the ChatGPT API (or other LLM) is currently handled in 
