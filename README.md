@@ -1,6 +1,6 @@
 ---
 component-id: child-search-expansion
-type: Software
+type: WebApplication
 name: Classification and curation of Listening Experiences with LLMs (Demo)
 description: This demo component was developed with the aim of supporting the identification of implicit themes (classification) and metadata (curation) in text. It takes as reference the documentary evidence benchmark
 work-package: 
