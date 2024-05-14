@@ -126,9 +126,10 @@
                 <option value="gpt-4-turbo">gpt-4-turbo</option>
               </select>
               <hr class="hr hr-blurry" />
-              <label class="form-label" for="temperature">Temperature</label>
+              <label class="form-label" for="temperature">Temperature</label>:
+              <span id="temperatureLabel">0.80</span>
               <div class="range" data-mdb-range-init>
-                <input type="range" class="form-range" id="temperature" min="0" max="1" step="0.01"/>
+                <input type="range" class="form-range" id="temperature" min="0" max="1" step="0.01" value="0.8" onchange="updateTemperatureLabel(this.value);" />
               </div>
             </div>
           </div>
@@ -303,6 +304,10 @@
     <!-- Custom scripts -->
     <script type="text/javascript">
       // *** FUNCTIONS ***
+
+      function updateTemperatureLabel(input) {
+        $('#temperatureLabel').text(input);
+      }
 
       function populateLedText() {
         var selectedValue = $('#ledSamples').val();
