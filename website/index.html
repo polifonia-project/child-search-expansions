@@ -462,6 +462,11 @@
         console.log(resultsObj);
       }
 
+
+      function populateScenarioText(input) {
+        $('#scenarioText').text(input);
+      }
+
       // *** END FUNCTIONS ***
 
       var ledSamples = {
@@ -489,7 +494,20 @@
                 "She prefers the latter as they provide more reliable feedback, and she looks at the context of " +
                 "production of such sources (where, when, who created the source, the goal, which related events exist), " +
                 "contents (recurring motifs and themes), and elicited emotional responses. She collects sources " +
-                "belonging to different historical periods so as to characterize the development of identified phenomena."
+                "belonging to different historical periods so as to characterize the development of identified phenomena.",
+        "Andrea": "Andrea is a priest-scholar and a graduate music pianist with a specialization in organ music. Andrea's goal " +
+                "is to discover and explore sacred music written from the period of the Renaissance through the twentieth " +
+                "century and its unexpected links with his scholarly studies. Andrea is been very busy studying ancient texts and " +
+                "history books and he would like to dedicate more time to his passion for music and organs. However, he doesn't " +
+                "actually know what to look for. He is fond of sacred music, classical music and organs and it would be cool " +
+                "for him if he could read curiosities about these topics or his favorite composers. And who knows, he might " +
+                "also find interesting and unexpected links to his scholarly studies without resorting to extensive study and " +
+                "research from many books of several libraries.",
+        "David": "David is interested in understanding the social history of music, e.g. who were the musicians, " +
+                "who was the audience, how did a particular musical environment relate to the wider musical " +
+                "environment. He has a particular interest in understanding the environment around music " +
+                "which would not be classified as ‘elite’ music. He is also interested in people’s " +
+                "experience of listening to music."
       };
 
       $(document).ready(function () {
@@ -501,6 +519,8 @@
         $.each(ledSamples, function(key, value) {
           $('#ledSamples').append($('<option></option>').val(value).text(key));
         });
+
+        //foreach scenario, populate the scenario dropdown. Also add a function to watch for change and populate #scenarioText
 
         $('#scenarioText').text(scenarios["Ortenz"]);
       });
