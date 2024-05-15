@@ -54,8 +54,8 @@ $messages = [
 // The data you want to send via POST
 $fields = [
     //'model' => 'gpt-4-turbo', // Specify the model
-    //'model' => 'gpt-3.5-turbo-0125', // Specify the model
-    'model' => $model,
+    'model' => 'gpt-3.5-turbo-0125', // Specify the model
+    //'model' => $model,
     'temperature' => (float)$temp,
     'messages' => $messages,
     'max_tokens' => 1024 // Maximum number of tokens to generate
